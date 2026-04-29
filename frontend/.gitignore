@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+build/
+dist/
+
+# Environment variables (Crucial!)
+.env
+backend/.env
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific scratch files
+check_db.py
+test_auth.py
+check_db_output.txt
+backend/check_db.py
+backend/test_auth.py
