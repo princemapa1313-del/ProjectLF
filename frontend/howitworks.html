@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Lost & Finder</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+    <header class="navbar">
+        <div class="logo"><a href="index.html">Lost & Finder</a></div>
+        <nav class="nav-links desktop">
+            <a href="index.html">Home</a>
+            <a href="cases.html">Cases</a>
+            <a href="howitworks.html">How It Works</a>
+            <a href="features.html">Features</a>
+        </nav>
+    </header>
+    <main class="content">
+        <h1>How It Works</h1>
+        <section>
+            <h2>1. Report a Missing Person</h2>
+            <p>Family members or concerned citizens can submit a report with personal details and a recent photo. The photo is uploaded to Cloudinary and a face encoding is generated.</p>
+        </section>
+        <section>
+            <h2>2. AI‑Powered Face Matching</h2>
+            <p>Our backend uses the <code>face_recognition</code> library (or a mock fallback) to compare the uploaded encoding against a database of registered family members. When a match is found, a confidence score is returned.</p>
+        </section>
+        <section>
+            <h2>3. Real‑Time Notifications</h2>
+            <p>Matched cases trigger an in‑app notification and optional email/SMS alerts so families are instantly informed.</p>
+        </section>
+        <section>
+            <h2>4. Admin Review</h2>
+            <p>Admins can approve, reject, or delete reports, manage users, and monitor system health.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Lost & Finder. All rights reserved.</p>
+    </footer>
+    <script src="js/api.js"></script>
+</body>
+</html>

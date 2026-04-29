@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Finder | India's #1 Missing Person Portal</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="var(--primary-orange)"/>
+                </svg>
+                Lost <span>&</span> Finder
+            </div>
+            <div class="nav-links desktop">
+                <a href="#">Home</a>
+<a href="cases.html">Cases</a>
+                <a href="howitworks.html">How It Works</a>
+                <a href="features.html">Features</a>
+            </div>
+            <div class="nav-links">
+                <a href="admin-login.html" class="admin-link">Admin</a>
+                <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                <button class="btn btn-primary" onclick="openRegisterModal()">Sign Up Free</button>
+            </div>
+        </nav>
+
+        <main class="hero">
+            <div class="hero-content">
+                <span style="background: rgba(224, 90, 43, 0.1); color: var(--primary-orange); padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; display: inline-block; margin-bottom: 1.5rem;">
+                    • India's #1 Missing Person Search Portal
+                </span>
+                <h1>Every Second Counts.<br>Find Your <span>Loved Ones.</span></h1>
+                <p>AI-powered face recognition, real-time alerts, and a nationwide network of families, NGOs, and police — all in one platform.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="openLoginModal()">🚨 Report Missing</button>
+                    <a class="btn btn-outline" href="cases.html">📄 View All Cases</a>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                    <span class="text-sm text-muted">🏛️ DigiLocker</span>
+                    <span class="text-sm text-muted">🔒 Encrypted</span>
+                    <span class="text-sm text-muted">⚡ Real-Time</span>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="img/hero-preview.png" alt="Facial Recognition Dashboard Preview" style="width: 100%; display: block;">
+            </div>
+        </main>
+
+        <section class="stats-section">
+            <div class="stat-item">
+                <h3 id="stat-cases">5,124+</h3>
+                <p>Cases Registered</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="stat-reunited">2,847+</h3>
+                <p>People Reunited</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="stat-ngos">320+</h3>
+                <p>NGO Partners</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="stat-states">28+</h3>
+                <p>States Covered</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-white); border-top: 1px solid var(--border-light); padding: 4rem 2rem 2rem; margin-top: 4rem;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+            <div>
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="var(--primary-orange)"/>
+                    </svg>
+                    Lost <span>&</span> Finder
+                </div>
+                <p class="text-muted text-sm">Empowering families, police, and NGOs with state-of-the-art AI technology to reunite missing persons across India.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem; font-weight: 600;">Platform</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a href="cases.html" class="text-muted text-sm" style="text-decoration: none;">View Cases</a></li>
+                    <li><a href="howitworks.html" class="text-muted text-sm" style="text-decoration: none;">How It Works</a></li>
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;" onclick="openRegisterModal()">Register Face</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem; font-weight: 600;">Resources</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;">Help Center</a></li>
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;">Police Guidelines</a></li>
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;">NGO Portal</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem; font-weight: 600;">Legal</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;">Privacy Policy</a></li>
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;">Terms of Service</a></li>
+                    <li><a href="#" class="text-muted text-sm" style="text-decoration: none;">Data Protection</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="border-top: 1px solid var(--border-light); margin-top: 3rem; padding-top: 2rem; text-align: center;">
+            <p class="text-muted text-sm">© 2026 Lost & Finder Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="close-btn" onclick="closeModals()">&times;</button>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Login securely</button>
+            </form>
+            <p class="text-center mt-4 text-sm">
+                Don't have an account? <span class="text-primary" onclick="openRegisterModal()">Sign Up</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="close-btn" onclick="closeModals()">&times;</button>
+            </div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" id="regMobile" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" class="form-control" required placeholder="Min 8 chars, 1 uppercase, 1 digit">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Register Now</button>
+            </form>
+            <p class="text-center mt-4 text-sm">
+                Already registered? <span class="text-primary" onclick="openLoginModal()">Login</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

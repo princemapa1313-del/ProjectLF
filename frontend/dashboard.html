@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Lost & Finder</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="var(--primary-orange)"/>
+                    </svg>
+                    L&F
+                </div>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item active" onclick="loadView('overview')">📊 Overview</div>
+                <div class="menu-item" onclick="loadView('reportMissing')">🚨 Report Missing</div>
+                <div class="menu-item" onclick="loadView('addFamily')">👨‍👩‍👧 Add Family Member</div>
+                <div class="menu-item" onclick="loadView('searchFace')">🔍 Search by Face</div>
+                <div class="menu-item" onclick="loadView('searchDetails')">📝 Search by Details</div>
+                <div class="menu-item" onclick="loadView('myReports')">📄 My Reports</div>
+                <div class="menu-item" onclick="loadView('notifications')">🔔 Notifications</div>
+                <div style="margin-top: auto; border-top: 1px solid var(--border-light); padding-top: 1rem; margin-top: 1rem;">
+                    <div class="menu-item" onclick="logout()">🚪 Logout</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h2 id="topbar-title">Dashboard</h2>
+                <div class="user-profile">
+                    <div class="notification-bell" onclick="loadView('notifications')">
+                        🔔 <span class="badge" id="notifBadge" style="display: none;">0</span>
+                    </div>
+                    <div class="avatar" id="userAvatar">U</div>
+                    <span id="userName" style="font-weight: 500;">User</span>
+                </div>
+            </header>
+
+            <div class="content-area" id="contentArea">
+                <!-- Content gets injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- View Templates (Hidden) -->
+    <template id="tpl-overview">
+        <div class="page-title">
+            <h1>Welcome back, <span id="overviewName">User</span></h1>
+            <p class="text-muted">Here is an overview of your activity.</p>
+        </div>
+        <div class="grid">
+            <div class="card" style="border-top: 4px solid var(--primary-orange)">
+                <h3>My Active Reports</h3>
+                <h1 id="countReports" style="font-size: 3rem; margin-top: 1rem;">0</h1>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--accent-blue)">
+                <h3>Family Members Registered</h3>
+                <h1 id="countFamily" style="font-size: 3rem; margin-top: 1rem;">0</h1>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-reportMissing">
+        <div class="page-title">
+            <h1>Report Missing Person</h1>
+            <p class="text-muted">Provide accurate details to help locate the person faster.</p>
+        </div>
+        <div class="card" style="max-width: 800px;">
+            <form id="reportForm" onsubmit="submitReport(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name (If known)</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Approx Age</label>
+                        <input type="number" name="age" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" name="contact" class="form-control" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Clothes Description</label>
+                        <input type="text" name="clothes" class="form-control" placeholder="E.g. Red shirt, blue jeans">
+                    </div>
+                    <div class="form-group full">
+                        <label>Last Seen / Found Location</label>
+                        <input type="text" name="location" class="form-control" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Date</label>
+                        <input type="date" name="date" class="form-control" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Recent Photo (Required for AI Match)</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Extra Notes</label>
+                        <textarea name="notes" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btnReportSubmit">Submit Report</button>
+            </form>
+        </div>
+    </template>
+
+    <template id="tpl-addFamily">
+        <div class="page-title">
+            <h1>Add Family Member</h1>
+            <p class="text-muted">Register your family member's face for automated match alerts.</p>
+        </div>
+        <div class="card" style="max-width: 800px;">
+            <form id="familyForm" onsubmit="submitFamily(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Relation</label>
+                        <input type="text" name="relation" class="form-control" required placeholder="E.g. Son, Mother">
+                    </div>
+                    <div class="form-group full">
+                        <label>Clear Photo of Face</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btnFamilySubmit">Register Family Member</button>
+            </form>
+        </div>
+    </template>
+
+    <template id="tpl-searchFace">
+        <div class="page-title">
+            <h1>Search by Face</h1>
+            <p class="text-muted">Upload an image of a person to check against our missing database.</p>
+        </div>
+        <div class="card" style="max-width: 600px;">
+            <form id="searchFaceForm" onsubmit="submitFaceSearch(event)">
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <input type="file" name="photo" class="form-control" accept="image/*" required id="searchPhotoInput">
+                </div>
+                <button type="submit" class="btn btn-primary" id="btnFaceSearch">Scan Database</button>
+            </form>
+        </div>
+        <div id="searchResults" style="margin-top: 2rem;" class="grid"></div>
+    </template>
+
+    <template id="tpl-searchDetails">
+        <div class="page-title">
+            <h1>Search by Details</h1>
+            <p class="text-muted">Search missing persons by keywords like red shirt, cutmark, location, or name.</p>
+        </div>
+        <div class="card" style="max-width: 600px;">
+            <form id="searchDetailsForm" onsubmit="submitTextSearch(event)">
+                <div class="form-group">
+                    <label>Keywords (e.g. Red shirt, Delhi, cutmark)</label>
+                    <input type="text" name="q" id="searchKeywordInput" class="form-control" placeholder="Enter keywords to search..." required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btnTextSearch">Search Database</button>
+            </form>
+        </div>
+        <div id="textSearchResults" style="margin-top: 2rem;" class="grid"></div>
+    </template>
+
+    <template id="tpl-myReports">
+        <div class="page-title">
+            <h1>My Reports</h1>
+            <p class="text-muted">Cases you have registered.</p>
+        </div>
+        <div id="reportsList" class="grid">
+            <!-- Rendered by JS -->
+        </div>
+    </template>
+
+    <template id="tpl-notifications">
+        <div class="page-title">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h1>Notifications</h1>
+                    <p class="text-muted">Alerts and updates about your cases.</p>
+                </div>
+                <button class="btn btn-outline" onclick="markAllRead()">Mark all as read</button>
+            </div>
+        </div>
+        <div id="notificationsList" style="display:flex; flex-direction:column; gap:1rem; max-width:800px;">
+            <!-- Rendered by JS -->
+        </div>
+    </template>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

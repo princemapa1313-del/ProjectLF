@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Lost & Finder</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(180deg, rgba(224,90,43,0.03), rgba(255,255,255,0));
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .auth-card h2 { margin-bottom: 0.5rem; }
+        .auth-footer { margin-top: 1rem; display:flex; justify-content:space-between; align-items:center; }
+        .hint { font-size: 0.9rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <div id="toast-container"></div>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <div>
+                    <h2>Admin Login</h2>
+                    <p class="hint">Sign in with your admin credentials to access the dashboard.</p>
+                </div>
+                <div>
+                    <a href="index.html" class="btn btn-outline">Home</a>
+                </div>
+            </div>
+
+            <form id="adminLoginForm" novalidate>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" required autocomplete="username">
+                    <div class="error-message" id="emailError" style="color:#dc2626; font-size:0.9rem; margin-top:0.5rem; display:none;"></div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password">
+                    <div class="error-message" id="passwordError" style="color:#dc2626; font-size:0.9rem; margin-top:0.5rem; display:none;"></div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%">Sign in as Admin</button>
+            </form>
+
+            <div class="auth-footer">
+                <div class="hint">Enter your admin credentials to continue.</div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Client-side validation for admin login
+        document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const emailEl = document.getElementById('loginEmail');
+            const passEl = document.getElementById('loginPassword');
+            const emailErr = document.getElementById('emailError');
+            const passErr = document.getElementById('passwordError');
+
+            emailErr.style.display = 'none'; passErr.style.display = 'none';
+            let ok = true;
+
+            const email = emailEl.value.trim();
+            const password = passEl.value;
+            const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+            if (!email) { emailErr.innerText = 'Email is required.'; emailErr.style.display = 'block'; ok = false; }
+            else if (!emailRe.test(email)) { emailErr.innerText = 'Please enter a valid email address.'; emailErr.style.display = 'block'; ok = false; }
+
+            if (!password) { passErr.innerText = 'Password is required.'; passErr.style.display = 'block'; ok = false; }
+            else if (password.length < 8) { passErr.innerText = 'Password must be at least 8 characters.'; passErr.style.display = 'block'; ok = false; }
+
+            if (!ok) return;
+
+            // Call shared login handler (auth.js)
+            try {
+                await handleLogin(e);
+            } catch (err) {
+                // handleLogin shows toast; optionally display inline message
+                // If API returns 401/403, show inline error near password
+                passErr.innerText = err?.message || 'Login failed. Please check credentials.';
+                passErr.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

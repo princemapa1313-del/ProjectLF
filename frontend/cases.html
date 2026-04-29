@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cases | Lost & Finder</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+    <header>
+        <nav class="navbar">
+            <div class="logo"><a href="index.html">Lost & Finder</a></div>
+            <div class="nav-links desktop">
+                <a href="index.html">Home</a>
+                <a href="cases.html">Cases</a>
+                <a href="howitworks.html">How It Works</a>
+                <a href="features.html">Features</a>
+            </div>
+        </nav>
+    </header>
+    <main class="content">
+        <h1>Registered Missing Person Cases</h1>
+        <p>Here you will see a list of all reported missing‑person cases. The data will be populated via the API.</p>
+        <!-- Controls: search / filters -->
+        <div class="controls">
+            <input id="caseSearch" class="form-control search" placeholder="Search by name, location or status" />
+        </div>
+        <!-- Placeholder for a dynamic case list -->
+        <div id="casesList">Loading cases...</div>
+    </main>
+    <script src="js/api.js"></script>
+    <script src="js/cases.js"></script>
+</body>
+</html>

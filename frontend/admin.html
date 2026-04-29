@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Lost & Finder</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .table th, .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-approved { background: #d1fae5; color: #059669; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+        .status-found { background: #dbeafe; color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span style="color:red">Admin</span> Panel
+                </div>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item active" onclick="loadAdminView('reports')">📄 Manage Reports</div>
+                <div class="menu-item" onclick="loadAdminView('users')">👥 Manage Users</div>
+                <div style="margin-top: auto; border-top: 1px solid var(--border-light); padding-top: 1rem; margin-top: 1rem;">
+                    <div class="menu-item" onclick="logout()">🚪 Logout</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h2 id="topbar-title">Admin Dashboard</h2>
+                <div class="user-profile">
+                    <div class="avatar" style="background: red;">A</div>
+                    <span style="font-weight: 500;">Super Admin</span>
+                </div>
+            </header>
+
+            <div class="content-area" id="adminContentArea">
+                <!-- Content gets injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- View Templates -->
+    <template id="tpl-reports">
+        <div class="page-title">
+            <h1>Manage Reports</h1>
+            <p class="text-muted">Approve, reject, or mark cases as found.</p>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem;">
+            <div style="flex:1; max-width:420px;">
+                <input id="adminReportSearch" class="form-control search" placeholder="Search reports by name, id, or status" />
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+                <div class="hint text-muted">Showing <span id="reportsCount">0</span> reports</div>
+            </div>
+        </div>
+
+        <table class="table" id="reportsTable">
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>Name</th>
+                    <th>Date Registered</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Populated by JS -->
+            </tbody>
+        </table>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+            <div class="hint text-muted">Page <span id="reportsPage">1</span></div>
+            <div>
+                <button class="btn btn-outline" id="prevPage">Prev</button>
+                <button class="btn btn-outline" id="nextPage">Next</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-users">
+        <div class="page-title">
+            <h1>Manage Users</h1>
+            <p class="text-muted">View or delete user accounts.</p>
+        </div>
+        <table class="table" id="usersTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Populated by JS -->
+            </tbody>
+        </table>
+    </template>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
